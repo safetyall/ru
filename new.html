@@ -17,9 +17,9 @@
     <style>
         /* --- GLOBAL VARIABLES & PREMIUM COLOR PALETTE --- */
         :root {
-            --bg-dark-1: #223341;
-            --bg-dark-2: #2F4354;
-            --bg-dark-3: #33485A;
+            --bg-dark-1: #151F28;
+            --bg-dark-2: #1C2A36;
+            --bg-dark-3: #223341;
             
             --accent-teal: #4FC5B8;
             --accent-teal-hover: #45C0AF;
@@ -30,10 +30,12 @@
             --text-muted: #EAEAEA;
             --text-sub: #A3B8CC;
             
-            --glass-bg: rgba(47, 67, 84, 0.45);
-            --glass-bg-card: rgba(34, 51, 65, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-glow: rgba(79, 197, 184, 0.25);
+            /* Premium Glass Variables */
+            --glass-bg: linear-gradient(135deg, rgba(47, 67, 84, 0.4) 0%, rgba(28, 42, 54, 0.6) 100%);
+            --glass-border-light: rgba(255, 255, 255, 0.15);
+            --glass-border-dark: rgba(255, 255, 255, 0.02);
+            --glass-glow: rgba(79, 197, 184, 0.15);
+            --glass-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5), 0 15px 25px -5px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0,0,0,0.1);
             
             --font-head: 'Oswald', sans-serif;
             --font-body: 'Oswald', sans-serif;
@@ -79,29 +81,24 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(120px);
-            opacity: 0.35;
+            opacity: 0.25;
             animation: floatGlow 18s infinite alternate ease-in-out;
+            will-change: transform;
         }
 
         .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--accent-teal); }
-        .blob-2 { bottom: 10%; right: -5%; width: 45vw; height: 45vw; background: var(--bg-dark-3); }
-        .blob-3 { top: 40%; left: 30%; width: 35vw; height: 35vw; background: var(--accent-orange); opacity: 0.15; }
+        .blob-2 { bottom: 10%; right: -5%; width: 45vw; height: 45vw; background: #1C2A36; }
+        .blob-3 { top: 40%; left: 30%; width: 35vw; height: 35vw; background: var(--accent-orange); opacity: 0.1; }
 
         @keyframes floatGlow {
             0% { transform: translate(0, 0) scale(1); }
             100% { transform: translate(40px, 60px) scale(1.1); }
         }
 
-        /* --- PLASMA GLOW TYPOGRAPHY --- */
+        /* --- TYPOGRAPHY & SPACING --- */
         @keyframes plasmaPulse {
-            0%, 100% {
-                text-shadow: 0 0 10px rgba(79, 197, 184, 0.4), 0 0 25px rgba(79, 197, 184, 0.2);
-                color: #FFFFFF;
-            }
-            50% {
-                text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 35px rgba(79, 197, 184, 0.6);
-                color: #FFFFFF;
-            }
+            0%, 100% { text-shadow: 0 0 10px rgba(79, 197, 184, 0.4), 0 0 25px rgba(79, 197, 184, 0.1); color: #FFFFFF; }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 35px rgba(79, 197, 184, 0.5); color: #FFFFFF; }
         }
 
         h2, .section-title {
@@ -110,1125 +107,406 @@
             font-weight: 500;
             letter-spacing: 0.08em;
             text-align: center;
-            font-size: clamp(2.2rem, 5vw, 3.6rem); 
-            margin-bottom: 3rem;
+            font-size: clamp(2rem, 4.5vw, 3.2rem); 
+            margin-bottom: 24px;
             padding: 0 10px;
             animation: plasmaPulse 5s infinite ease-in-out;
             will-change: text-shadow, color;
         }
         
-        h2 span, .section-title span {
-            color: var(--accent-teal) !important;
-            animation: none;
-        }
-
+        h2 span, .section-title span { color: var(--accent-teal) !important; animation: none; }
         .adv-title, .module-title { color: var(--text-main); }
-
-        /* --- PRELOADER --- */
-        #preloader {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: var(--bg-dark-1);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-family: var(--font-head);
-        }
-
-        .loader-ring {
-            width: 80px; height: 80px;
-            border: 2px solid rgba(79, 197, 184, 0.15);
-            border-top: 3px solid var(--accent-teal);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 30px;
-            box-shadow: 0 0 25px rgba(79, 197, 184, 0.3);
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loader-text {
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            color: var(--text-muted);
-            min-height: 27px;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .loader-percent {
-            font-size: 42px;
-            font-weight: 700;
-            color: var(--accent-teal);
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(79, 197, 184, 0.5);
-        }
-
-        .loader-bar-bg {
-            width: 300px;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .loader-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--accent-teal);
-            box-shadow: 0 0 12px var(--accent-teal);
-            border-radius: 2px;
-        }
-
-        /* --- GRID BACKGROUND --- */
-        .hero-grid {
-            position: fixed;
-            bottom: -30%; left: -50%;
-            width: 200%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(79, 197, 184, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(79, 197, 184, 0.08) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(600px) rotateX(60deg);
-            z-index: -2;
-            animation: moveGrid 20s linear infinite;
-            mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 70%);
-            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 70%);
-            opacity: 0.4;
-        }
-
-        @keyframes moveGrid {
-            0% { transform: perspective(600px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(600px) rotateX(60deg) translateY(50px); }
-        }
-
         h1, h3, h4, h5, h6 { font-family: var(--font-head); text-transform: uppercase; letter-spacing: 0.8px; }
-        
         a { text-decoration: none; color: inherit; transition: var(--transition); cursor: pointer; }
         a:hover { color: var(--accent-teal); }
         ul { list-style: none; }
 
+        .section-padding { padding: 55px 0; }
+        .cta-padding { padding: 30px 0; text-align: center; position: relative; }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-dark-1); z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; font-family: var(--font-head);
+        }
+
+        .loader-ring {
+            width: 80px; height: 80px;
+            border: 2px solid rgba(79, 197, 184, 0.15); border-top: 3px solid var(--accent-teal);
+            border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 30px;
+            box-shadow: 0 0 25px rgba(79, 197, 184, 0.3);
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader-text { font-size: 18px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; color: var(--text-muted); text-align: center; }
+        .loader-percent { font-size: 42px; font-weight: 700; color: var(--accent-teal); margin-bottom: 20px; text-shadow: 0 0 20px rgba(79, 197, 184, 0.5); }
+        .loader-bar-bg { width: 300px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; position: relative; }
+        .loader-bar-fill { height: 100%; width: 0%; background: var(--accent-teal); box-shadow: 0 0 12px var(--accent-teal); border-radius: 2px; }
+
+        /* --- GRID BACKGROUND --- */
+        .hero-grid {
+            position: fixed; bottom: -30%; left: -50%; width: 200%; height: 100%;
+            background-image: linear-gradient(rgba(79, 197, 184, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(79, 197, 184, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px; transform: perspective(600px) rotateX(60deg); z-index: -2;
+            animation: moveGrid 20s linear infinite;
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 70%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 70%);
+            opacity: 0.3;
+        }
+
+        @keyframes moveGrid { 0% { transform: perspective(600px) rotateX(60deg) translateY(0); } 100% { transform: perspective(600px) rotateX(60deg) translateY(50px); } }
+
         .container { max-width: 1320px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
         
         .glass-divider {
-            width: 85%;
-            height: 2px;
-            margin: 20px auto 70px auto; 
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 2px;
+            width: 85%; height: 2px; margin: 25px auto; 
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 2px;
         }
 
-        .glass-panel {
-            background: var(--glass-bg-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            transition: var(--transition);
+        /* --- PREMIUM 3D GLASS CARD BASE --- */
+        .premium-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-top: 1px solid var(--glass-border-light);
+            border-left: 1px solid var(--glass-border-light);
+            border-right: 1px solid var(--glass-border-dark);
+            border-bottom: 1px solid var(--glass-border-dark);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Inner ambient glow */
+        .premium-glass::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.08) 0%, transparent 60%);
+            pointer-events: none; border-radius: 20px; z-index: 0;
+        }
+
+        .tilt-content {
+            transform: translateZ(30px);
+            transition: transform 0.4s ease;
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex; flex-direction: column;
+        }
+
+        .premium-glass:hover {
+            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.7), 0 15px 25px -5px rgba(0, 0, 0, 0.4), 0 0 35px rgba(79, 197, 184, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0,0,0,0.1);
+            border-top-color: rgba(79, 197, 184, 0.4);
+            border-left-color: rgba(79, 197, 184, 0.2);
+            background: linear-gradient(135deg, rgba(47, 67, 84, 0.5) 0%, rgba(28, 42, 54, 0.7) 100%);
+            z-index: 10;
         }
 
         .text-cyan { color: var(--accent-teal); text-shadow: 0 0 12px rgba(79, 197, 184, 0.4); }
-        .section-padding { padding: 90px 0; }
         
         /* --- PREMIUM BUTTONS --- */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 30px;
-            font-family: var(--font-head);
-            font-weight: 600;
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: none;
-            z-index: 1;
-            text-decoration: none;
-            white-space: nowrap;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 13px 28px; font-family: var(--font-head); font-weight: 600; font-size: 15px;
+            text-transform: uppercase; letter-spacing: 1.2px; border-radius: 12px; cursor: pointer;
+            transition: var(--transition); position: relative; overflow: hidden; border: none;
+            z-index: 1; text-decoration: none; white-space: nowrap;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, rgba(79, 197, 184, 0.3), rgba(69, 192, 175, 0.1));
-            color: var(--text-main);
-            border: 1px solid var(--accent-teal);
-            box-shadow: 0 8px 25px rgba(79, 197, 184, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(79, 197, 184, 0.25), rgba(69, 192, 175, 0.05));
+            color: var(--text-main); border: 1px solid var(--accent-teal);
+            box-shadow: 0 8px 25px rgba(79, 197, 184, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         }
 
         .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: 0.6s;
-            z-index: -1;
+            transition: 0.6s; z-index: -1;
         }
 
         .btn-primary:hover::before { left: 100%; }
         .btn-primary:hover {
-            box-shadow: 0 12px 35px rgba(79, 197, 184, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            box-shadow: 0 15px 35px rgba(79, 197, 184, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
             transform: translateY(-2px) scale(1.02);
-            background: linear-gradient(135deg, rgba(79, 197, 184, 0.45), rgba(69, 192, 175, 0.2));
+            background: linear-gradient(135deg, rgba(79, 197, 184, 0.4), rgba(69, 192, 175, 0.15));
             color: #FFFFFF;
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-main);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.06); color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(10px);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
         }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-2px);
-            color: var(--accent-teal);
-        }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.4); transform: translateY(-2px); color: var(--accent-teal); }
 
         .btn-lk {
             background: linear-gradient(135deg, rgba(233, 138, 66, 0.25), rgba(242, 203, 78, 0.1));
-            border: 1px solid var(--accent-orange);
-            color: var(--text-main);
-            box-shadow: 0 0 20px rgba(233, 138, 66, 0.25);
-            border-radius: 30px;
-            padding: 9px 20px;
-            font-size: 14px;
+            border: 1px solid var(--accent-orange); color: var(--text-main);
+            box-shadow: 0 0 20px rgba(233, 138, 66, 0.25); border-radius: 30px; padding: 9px 20px; font-size: 14px;
         }
+        .btn-lk:hover { background: linear-gradient(135deg, rgba(233, 138, 66, 0.4), rgba(242, 203, 78, 0.25)); box-shadow: 0 0 30px rgba(233, 138, 66, 0.5); transform: translateY(-2px); }
 
-        .btn-lk:hover {
-            background: linear-gradient(135deg, rgba(233, 138, 66, 0.4), rgba(242, 203, 78, 0.25));
-            box-shadow: 0 0 30px rgba(233, 138, 66, 0.5);
-            transform: translateY(-2px);
-        }
-
-        /* --- REDESIGNED HEADER (FROSTED GLASS & ONE-LEVEL ALIGNMENT) --- */
+        /* --- HEADER --- */
         .header {
-            position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 1360px;
-            height: var(--header-height);
-            z-index: 1000;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            border-radius: 50px;
-            background: rgba(34, 51, 65, 0.55);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 40px); max-width: 1360px; height: var(--header-height); z-index: 1000;
+            transition: var(--transition); display: flex; align-items: center; border-radius: 50px;
+            background: rgba(28, 42, 54, 0.55); backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .header.scrolled {
-            top: 10px;
-            background: rgba(22, 35, 46, 0.85);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-            height: 68px;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            padding: 0 28px;
-        }
-
-        .logo {
-            font-family: var(--font-head);
-            font-size: 28px;
-            font-weight: 700;
-            color: #FFFFFF;
-            letter-spacing: 2.5px;
-            z-index: 1002;
-            display: flex;
-            align-items: center;
-            line-height: 1;
-            margin: 0;
-            transition: var(--transition);
-        }
-        .logo span { 
-            color: var(--accent-teal); 
-            text-shadow: 0 0 15px rgba(79, 197, 184, 0.8);
-            margin-left: 1px;
-        }
-
-        .nav-menu { 
-            display: flex; 
-            gap: 22px; 
-            align-items: center;
-            margin: 0;
-            padding: 0;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-        }
-
+        .header.scrolled { top: 10px; background: rgba(22, 35, 46, 0.85); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25); height: 68px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; padding: 0 28px; }
+        .logo { font-family: var(--font-head); font-size: 28px; font-weight: 700; color: #FFFFFF; letter-spacing: 2.5px; z-index: 1002; display: flex; align-items: center; line-height: 1; margin: 0; transition: var(--transition); }
+        .logo span { color: var(--accent-teal); text-shadow: 0 0 15px rgba(79, 197, 184, 0.8); margin-left: 1px; }
+        .nav-menu { display: flex; gap: 22px; align-items: center; margin: 0; padding: 0; background: transparent; border: none; box-shadow: none; }
         .nav-item { position: relative; display: flex; align-items: center; }
+        .nav-link { font-size: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; padding: 8px 10px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; transition: var(--transition); border-radius: 8px; }
+        .nav-link:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.08); text-shadow: 0 0 12px rgba(79, 197, 184, 0.6); }
 
-        .nav-link {
-            font-size: 15px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding: 8px 10px;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
-            border-radius: 8px;
-        }
-
-        .nav-link:hover { 
-            color: var(--text-main); 
-            background: rgba(255, 255, 255, 0.08);
-            text-shadow: 0 0 12px rgba(79, 197, 184, 0.6);
-        }
-
-        /* FROSTED GLASS DROPDOWN */
         .dropdown-ferrari {
-            position: absolute;
-            top: calc(100% + 14px);
-            left: 50%;
-            transform: translateX(-50%) translateY(15px) scale(0.95);
-            width: 330px; 
-            background: rgba(28, 42, 54, 0.88);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            border-top: 2px solid var(--accent-teal);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(79, 197, 184, 0.15);
-            border-radius: 18px;
-            padding: 24px;
-            z-index: 1100;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            transform-origin: top center; 
+            position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(15px) scale(0.95);
+            width: 330px; background: rgba(28, 42, 54, 0.88); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border-light); border-top: 2px solid var(--accent-teal);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(79, 197, 184, 0.15); border-radius: 18px; padding: 24px; z-index: 1100;
+            opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: top center;
         }
-
-        .dropdown-ferrari::before {
-            content: '';
-            position: absolute;
-            top: -7px; left: 50%;
-            transform: translateX(-50%);
-            width: 0; height: 0;
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
-            border-bottom: 7px solid var(--accent-teal);
-        }
-
-        .nav-item:hover .dropdown-ferrari {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateX(-50%) translateY(0) scale(1); 
-        }
-
-        .dropdown-title {
-            color: var(--accent-teal);
-            font-size: 17px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 8px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
+        .dropdown-ferrari::before { content: ''; position: absolute; top: -7px; left: 50%; transform: translateX(-50%); border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 7px solid var(--accent-teal); }
+        .nav-item:hover .dropdown-ferrari { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0) scale(1); }
+        .dropdown-title { color: var(--accent-teal); font-size: 17px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; text-transform: uppercase; font-weight: 600; }
         .dropdown-text { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
-
-        .dropdown-list li {
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 14px;
-            color: var(--text-muted);
-        }
+        .dropdown-list li { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: var(--text-muted); }
         .dropdown-list li:last-child { border-bottom: none; }
         .dropdown-list i { margin-right: 8px; font-size: 12px; }
-
-        .dropdown-contact-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
+        .dropdown-contact-row { display: flex; align-items: center; margin-bottom: 10px; font-size: 14px; color: var(--text-muted); }
         .dropdown-contact-row i { width: 22px; margin-right: 10px; }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
+        .header-actions { display: flex; align-items: center; gap: 14px; }
         .mobile-toggle { display: none; color: white; font-size: 22px; cursor: pointer; z-index: 1002; }
 
         /* --- HERO SECTION --- */
-        .hero {
-            height: 100vh;
-            min-height: 750px;
+        .hero { height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; position: relative; padding-top: calc(var(--header-height) + 10px); overflow: hidden; }
+        .hero-modern-card {
+            position: relative; z-index: 2; max-width: 1050px; width: 92%; text-align: center; padding: clamp(30px, 5vw, 60px); 
+            background: linear-gradient(135deg, rgba(34, 51, 65, 0.6) 0%, rgba(22, 33, 44, 0.8) 100%);
+            backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); border-radius: 28px;
+            border: 1px solid var(--glass-border-light);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            display: flex; flex-direction: column; align-items: center; transform-style: preserve-3d;
+        }
+        .hero-pre-title { font-family: var(--font-head); font-size: clamp(14px, 2vw, 20px); color: var(--accent-teal); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; font-weight: 500; border-bottom: 1px solid var(--accent-teal); padding-bottom: 8px; display: inline-block; }
+        .hero-big-brand { font-family: var(--font-head); font-size: clamp(44px, 11vw, 120px); font-weight: 700; color: #FFFFFF; line-height: 1.05; letter-spacing: 3px; margin: 10px 0 20px 0; text-transform: uppercase; animation: plasmaPulse 6s infinite ease-in-out; }
+        .hero-subtitle { font-family: var(--font-body); color: var(--text-muted); font-size: clamp(15px, 2vw, 18px); max-width: 700px; margin: 0 auto 35px auto; line-height: 1.6; }
+        .hero-btns { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+
+        /* --- ABOUT SECTION --- */
+        .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: center; }
+        .about-logo-3d { width: 100%; max-width: 360px; height: auto; border-radius: 20px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(79, 197, 184, 0.2); transition: transform 0.5s ease; transform: translateZ(20px); }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .stat-card { padding: 20px; text-align: center; }
+        .stat-num { font-family: var(--font-head); font-size: 36px; color: var(--text-main); display: block; margin-bottom: 4px; font-weight: 700; text-shadow: 0 0 15px rgba(79,197,184,0.4); }
+        .stat-desc { color: var(--text-sub); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- 5 REASONS SECTION (Redesigned Clean Layout) --- */
+        .reasons-header { text-align: center; margin-bottom: 35px; }
+        .reasons-subheader { color: var(--text-sub); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
+        
+        .reasons-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .reason-card { 
+            flex: 1 1 320px;
+            max-width: 390px;
+            padding: 26px 22px; 
+            text-align: center; 
+            align-items: center; 
+        }
+        .reason-icon { font-size: 40px; color: var(--accent-teal); margin-bottom: 16px; transition: 0.3s; filter: drop-shadow(0 0 15px rgba(79,197,184,0.5)); }
+        .reason-card:hover .reason-icon { color: var(--accent-orange); transform: scale(1.12) translateZ(15px); filter: drop-shadow(0 0 20px rgba(233,138,66,0.6)); }
+        .reason-title { font-family: var(--font-head); font-size: 18px; color: var(--text-main); margin-bottom: 10px; font-weight: 500; text-transform: uppercase; }
+        .reason-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+        /* Premium Quote Banner for 5 Reasons */
+        .reasons-quote-card {
+            max-width: 920px;
+            margin: 30px auto 0 auto;
+            padding: 24px 32px;
+            border: 1px solid rgba(79, 197, 184, 0.35);
+            background: linear-gradient(135deg, rgba(79, 197, 184, 0.12) 0%, rgba(28, 42, 54, 0.65) 100%);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(79, 197, 184, 0.15);
+            text-align: center;
+        }
+        .quote-inner {
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            padding-top: calc(var(--header-height) + 20px);
-            overflow: hidden;
-        }
-
-        .hero-modern-card {
-            position: relative;
-            z-index: 2;
-            max-width: 1050px;
-            width: 92%;
-            text-align: center;
-            padding: clamp(35px, 6vw, 70px); 
-            background: rgba(34, 51, 65, 0.75);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .hero-pre-title {
-            font-family: var(--font-head);
-            font-size: clamp(14px, 2vw, 20px);
-            color: var(--accent-teal);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            font-weight: 500;
-            border-bottom: 1px solid var(--accent-teal);
-            padding-bottom: 8px;
-            display: inline-block;
-        }
-
-        .hero-big-brand {
-            font-family: var(--font-head);
-            font-size: clamp(44px, 11vw, 128px);
-            font-weight: 700;
-            color: #FFFFFF;
-            line-height: 1.05;
-            letter-spacing: 3px;
-            margin: 10px 0 20px 0;
-            text-transform: uppercase;
-            animation: plasmaPulse 6s infinite ease-in-out;
-        }
-
-        .hero-subtitle {
-            font-family: var(--font-body);
-            color: var(--text-muted);
-            font-size: clamp(16px, 2vw, 19px);
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-            line-height: 1.6;
-        }
-
-        .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-
-        /* --- ABOUT SECTION --- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .about-logo-3d {
-            width: 100%;
-            max-width: 380px;
-            height: auto;
-            border-radius: 24px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(79, 197, 184, 0.2);
-            transition: transform 0.5s ease;
-        }
-        .about-logo-3d:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 0 0 50px rgba(79, 197, 184, 0.35);
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-top: 40px;
         }
-
-        .stat-card {
-            padding: 24px;
-            text-align: center;
-            border-radius: 16px;
-            border-top: 3px solid var(--accent-teal);
-            background: linear-gradient(180deg, rgba(79, 197, 184, 0.1), rgba(0, 0, 0, 0.2));
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+        .quote-icon {
+            font-size: 28px;
+            color: var(--accent-teal);
+            filter: drop-shadow(0 0 10px rgba(79,197,184,0.6));
+            flex-shrink: 0;
         }
-        .stat-num { font-family: var(--font-head); font-size: 38px; color: var(--text-main); display: block; margin-bottom: 5px; font-weight: 700; }
-        .stat-desc { color: var(--text-sub); font-size: 14px; }
-
-        /* --- 5 REASONS SECTION --- */
-        .reasons-header { text-align: center; margin-bottom: 60px; }
-        .reasons-subheader {
-            color: var(--text-sub);
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 15px;
-        }
-
-        .reasons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 28px;
-            margin-bottom: 50px;
-        }
-
-        .reason-card {
-            background: var(--glass-bg-card);
-            border: 1px solid var(--glass-border); 
-            border-left: 4px solid var(--accent-teal); 
-            padding: 40px 32px;
-            border-radius: 24px; 
-            transition: var(--transition);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .reason-card:hover {
-            transform: translateY(-8px);
-            background: rgba(47, 67, 84, 0.85);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(79, 197, 184, 0.2);
-            border-left-color: var(--accent-orange); 
-        }
-
-        .reason-icon {
-            font-size: 36px;
-            color: var(--accent-teal); 
-            margin-bottom: 24px;
-            transition: 0.3s;
-        }
-        .reason-card:hover .reason-icon {
-            color: var(--accent-orange);
-            transform: scale(1.15);
-        }
-
-        .reason-title {
-            font-family: var(--font-head);
-            font-size: 22px;
-            color: var(--text-main);
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
-
-        .reason-desc {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .reasons-footer-text {
-            text-align: center;
-            max-width: 850px;
-            margin: 0 auto;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .quote-text {
             font-family: var(--font-head);
             font-size: 20px;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-
-        /* --- ADVANTAGES SECTION --- */
-        .adv-lead {
-            text-align: center;
-            max-width: 850px;
-            margin: 0 auto 60px auto;
-            color: var(--text-sub);
-            font-size: 18px;
-        }
-
-        .adv-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-        }
-
-        .adv-card {
-            background: var(--glass-bg-card); 
-            border: 1px solid var(--glass-border);
-            padding: 44px;
-            border-radius: 24px;
-            transition: var(--transition);
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-        }
-        
-        .adv-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(79, 197, 184, 0.25);
-            border-color: var(--accent-teal);
-        }
-
-        .adv-icon {
-            font-size: 42px;
-            color: var(--accent-teal);
-            margin-bottom: 22px;
-            transition: 0.3s;
-        }
-
-        .adv-card:hover .adv-icon {
-            text-shadow: 0 0 20px var(--accent-teal);
-            transform: scale(1.1);
-        }
-
-        .adv-title {
-            font-family: var(--font-head);
-            font-size: 24px;
-            margin-bottom: 16px;
+            color: #FFFFFF;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
+            line-height: 1.4;
+            font-weight: 500;
         }
 
-        .adv-desc {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
+        /* --- MARQUEE PARTNERS --- */
+        .marquee-wrapper { overflow: hidden; width: 100%; white-space: nowrap; position: relative; padding: 15px 0; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
+        .marquee-content img { height: 55px; margin: 0 35px; filter: brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.1)); vertical-align: middle; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .ai-features {
-            margin-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 18px;
-        }
-        .ai-item { margin-bottom: 10px; font-size: 14px; color: var(--text-muted); }
+        /* --- ADVANTAGES SECTION (Compact & Sleek) --- */
+        .adv-lead { text-align: center; max-width: 850px; margin: 0 auto 35px auto; color: var(--text-sub); font-size: 16px; }
+        .adv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .adv-card { padding: 26px 28px; }
+        .adv-icon { font-size: 38px; color: var(--accent-teal); margin-bottom: 14px; transition: 0.3s; filter: drop-shadow(0 0 12px rgba(79,197,184,0.4)); }
+        .adv-card:hover .adv-icon { transform: scale(1.1) translateZ(20px); filter: drop-shadow(0 0 20px rgba(79,197,184,0.7)); }
+        .adv-title { font-family: var(--font-head); font-size: 20px; margin-bottom: 10px; text-transform: uppercase; }
+        .adv-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+        .ai-features { margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
+        .ai-item { margin-bottom: 8px; font-size: 13.5px; color: var(--text-muted); }
         .ai-item strong { color: white; }
 
         /* --- COURSES CATALOG --- */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-        }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; }
+        .course-module { padding: 30px 26px; }
+        .module-icon-zone { margin-bottom: 20px; display: flex; flex-direction: column; align-items: flex-start; }
+        .module-icon { font-size: 38px; color: var(--accent-teal); margin-bottom: 12px; transition: 0.3s; filter: drop-shadow(0 0 12px rgba(79,197,184,0.3)); }
+        .course-module:hover .module-icon { transform: scale(1.1) translateZ(20px); filter: drop-shadow(0 0 20px rgba(79,197,184,0.7)); }
+        .module-indicator { width: 35px; height: 3px; background: var(--accent-teal); box-shadow: 0 0 10px var(--accent-teal); transition: 0.3s; border-radius: 2px; }
+        .course-module:hover .module-indicator { width: 55px; background: var(--accent-orange); box-shadow: 0 0 10px var(--accent-orange); }
+        .module-title { font-family: var(--font-head); font-size: 20px; text-transform: uppercase; margin-bottom: 12px; line-height: 1.3; font-weight: 500; }
+        .module-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; flex-grow: 1; }
+        .module-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(79, 197, 184, 0.4); color: var(--text-main); padding: 12px 0; text-align: center; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; border-radius: 10px; transition: 0.3s; font-family: var(--font-head); cursor: pointer; width: 100%; backdrop-filter: blur(5px); }
+        .module-btn:hover { background: rgba(79, 197, 184, 0.2); border-color: var(--accent-teal); color: white; box-shadow: 0 0 20px rgba(79, 197, 184, 0.4); transform: translateZ(10px); }
 
-        .course-module {
-            background: var(--glass-bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 38px;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .course-module:hover {
-            border-color: var(--accent-teal);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 35px rgba(79, 197, 184, 0.3);
-            transform: translateY(-8px) scale(1.02);
-        }
-
-        .module-icon-zone {
-            margin-bottom: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .module-icon {
-            font-size: 36px;
-            color: var(--accent-teal);
-            margin-bottom: 14px;
-            transition: 0.3s;
-        }
-
-        .course-module:hover .module-icon {
-            transform: scale(1.15);
-            text-shadow: 0 0 20px var(--accent-teal);
-        }
-
-        .module-indicator {
-            width: 35px;
-            height: 3px;
-            background: var(--accent-teal);
-            box-shadow: 0 0 10px var(--accent-teal);
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-        .course-module:hover .module-indicator { width: 60px; background: var(--accent-orange); box-shadow: 0 0 10px var(--accent-orange); }
-
-        .module-title {
-            font-family: var(--font-head);
-            font-size: 22px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            line-height: 1.3;
-            font-weight: 500;
-        }
-
-        .module-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 30px;
-            flex-grow: 1;
-        }
-
-        .module-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(79, 197, 184, 0.4);
-            color: var(--text-main);
-            padding: 14px 0;
-            text-align: center;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 1px;
-            border-radius: 12px;
-            transition: 0.3s;
-            font-family: var(--font-head);
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .module-btn:hover {
-            background: rgba(79, 197, 184, 0.2);
-            border-color: var(--accent-teal);
-            color: white;
-            box-shadow: 0 0 20px rgba(79, 197, 184, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* --- PROCESS SECTION --- */
-        .timeline-container {
-            position: relative;
-            max-width: 950px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(-50%);
-            border-radius: 4px;
-            overflow: hidden; 
-        }
-
-        .timeline-beam {
-            position: absolute;
-            top: -20%;
-            left: 0;
-            width: 100%;
-            height: 35%;
-            background: linear-gradient(180deg, transparent, var(--accent-teal), transparent);
-            box-shadow: 0 0 20px var(--accent-teal);
-            animation: lightFlow 4s infinite ease-in-out;
-        }
-
-        @keyframes lightFlow {
-            0% { top: -20%; opacity: 0; }
-            10% { opacity: 1; }
-            60% { top: 110%; opacity: 1; } 
-            100% { top: 110%; opacity: 0; } 
-        }
-
-        .timeline-item {
-            position: relative;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 55px;
-        }
+        /* --- PROCESS SECTION TIMELINE (Fixed Number Badge) --- */
+        .timeline-container { position: relative; max-width: 950px; margin: 0 auto; padding: 15px 0; }
+        .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: rgba(255, 255, 255, 0.05); transform: translateX(-50%); border-radius: 4px; overflow: hidden; box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
+        .timeline-beam { position: absolute; top: -20%; left: 0; width: 100%; height: 35%; background: linear-gradient(180deg, transparent, var(--accent-teal), transparent); box-shadow: 0 0 20px var(--accent-teal); animation: lightFlow 4s infinite ease-in-out; }
+        @keyframes lightFlow { 0% { top: -20%; opacity: 0; } 10% { opacity: 1; } 60% { top: 110%; opacity: 1; } 100% { top: 110%; opacity: 0; } }
         
+        .timeline-item { position: relative; width: 100%; display: flex; justify-content: center; margin-bottom: 40px; perspective: 1000px; }
         .timeline-item:nth-child(odd) { justify-content: flex-start; }
         .timeline-item:nth-child(even) { justify-content: flex-end; }
         
-        .timeline-content {
-            width: 45%;
-            padding: 32px;
-            position: relative;
-            transition: var(--transition);
-            border-radius: 20px;
-        }
+        .timeline-content { width: 46%; padding: 24px 28px; position: relative; }
         
-        .timeline-content:hover { border-color: var(--accent-teal); box-shadow: 0 0 35px rgba(79,197,184,0.3); }
-
-        .step-num {
-            position: absolute;
-            top: -15px;
-            width: 42px; height: 42px;
-            border-radius: 50%;
-            background: var(--bg-dark-1);
-            border: 2px solid var(--accent-teal);
-            color: var(--accent-teal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-head);
-            font-weight: bold;
-            box-shadow: 0 0 20px rgba(79, 197, 184, 0.4);
-            z-index: 5;
+        /* New Stylish Header Block for Steps */
+        .step-card-header { display: flex; align-items: center; margin-bottom: 10px; }
+        .step-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, rgba(79, 197, 184, 0.25), rgba(79, 197, 184, 0.08));
+            border: 1px solid var(--accent-teal); color: var(--accent-teal);
+            padding: 4px 14px; border-radius: 20px; font-family: var(--font-head);
+            font-size: 13px; font-weight: 600; letter-spacing: 1px;
+            box-shadow: 0 0 12px rgba(79, 197, 184, 0.25);
         }
-        
-        .timeline-item:nth-child(odd) .step-num { right: -21px; }
-        .timeline-item:nth-child(even) .step-num { left: -21px; }
+        .step-title { font-size: 18px; color: #FFFFFF; margin-bottom: 6px; }
+        .step-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; }
 
-        .timeline-dot {
-            position: absolute;
-            left: 50%; top: 32px;
-            transform: translateX(-50%);
-            width: 14px; height: 14px;
-            background: var(--bg-dark-1);
-            border: 2px solid var(--accent-teal);
-            border-radius: 50%;
-            z-index: 2;
-            transition: 0.3s;
-        }
+        .timeline-dot { position: absolute; left: 50%; top: 28px; transform: translateX(-50%); width: 16px; height: 16px; background: var(--bg-dark-1); border: 3px solid var(--accent-teal); border-radius: 50%; z-index: 2; transition: 0.3s; box-shadow: 0 0 15px var(--accent-teal); }
+
+        /* --- CONTACTS --- */
+        .contacts-center { max-width: 850px; margin: 0 auto; text-align: center; }
+        .contacts-list { display: inline-block; text-align: left; margin-top: 15px; }
 
         /* --- REDESIGNED INTERACTIVE 3D FOOTER --- */
-        .footer-3d {
-            position: relative;
-            background: linear-gradient(180deg, rgba(22, 33, 44, 0.7) 0%, rgba(15, 23, 30, 0.98) 100%);
-            padding: 90px 0 30px;
-            border-top: 1px solid var(--glass-border);
-            z-index: 2;
-            perspective: 1200px;
-            overflow: hidden;
-        }
-
-        .footer-3d-grid {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr 1fr;
-            gap: 32px;
-            margin-bottom: 50px;
-        }
-
-        .footer-3d-card {
-            background: rgba(34, 51, 65, 0.55);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 38px 32px;
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-            transform-style: preserve-3d;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .footer-3d-card:hover {
-            border-color: rgba(79, 197, 184, 0.5);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(79, 197, 184, 0.2);
-        }
-
-        .footer-3d-content {
-            transform: translateZ(30px);
-            transition: transform 0.4s ease;
-        }
-
-        .footer-logo-box {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .footer-logo-img {
-            width: 100px; 
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .footer-3d-card:hover .footer-logo-img {
-            transform: scale(1.08) translateZ(15px);
-            box-shadow: 0 0 30px rgba(79, 197, 184, 0.4);
-        }
-
-        .footer-title {
-            color: white;
-            font-size: 20px;
-            margin-bottom: 22px;
-            position: relative;
-            display: inline-block;
-        }
-        .footer-title::after {
-            content: '';
-            position: absolute;
-            bottom: -6px; left: 0;
-            width: 40px; height: 2px;
-            background: var(--accent-teal);
-            box-shadow: 0 0 10px var(--accent-teal);
-            border-radius: 2px;
-        }
-
-        .footer-links li { margin-bottom: 14px; }
-        .footer-links a {
-            color: var(--text-sub);
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            transition: 0.3s ease;
-        }
-        .footer-links a i {
-            margin-right: 8px;
-            font-size: 12px;
-            color: var(--accent-teal);
-            transition: 0.3s ease;
-        }
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(6px);
-        }
-        .footer-links a:hover i {
-            transform: scale(1.3);
-        }
-
-        .footer-contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 14px;
-            color: var(--text-sub);
-            font-size: 14px;
-        }
-        .footer-contact-item i {
-            color: var(--accent-teal);
-            font-size: 16px;
-            margin-top: 4px;
-        }
-
-        .interactive-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(79, 197, 184, 0.12);
-            border: 1px solid rgba(79, 197, 184, 0.3);
-            border-radius: 30px;
-            color: var(--accent-teal);
-            font-size: 13px;
-            margin-top: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .interactive-badge:hover {
-            background: rgba(79, 197, 184, 0.25);
-            box-shadow: 0 0 20px rgba(79, 197, 184, 0.4);
-            transform: translateZ(10px) scale(1.03);
-        }
-
-        .copyright-bar {
-            color: var(--text-sub);
-            font-size: 14px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+        .footer-3d { position: relative; background: linear-gradient(180deg, rgba(22, 33, 44, 0.5) 0%, rgba(15, 23, 30, 0.95) 100%); padding: 70px 0 25px; border-top: 1px solid var(--glass-border-light); z-index: 2; perspective: 1200px; overflow: hidden; }
+        .footer-3d-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px; margin-bottom: 40px; }
+        .footer-3d-card { padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; }
+        .footer-logo-box { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+        .footer-logo-img { width: 90px; height: auto; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: transform 0.4s ease, box-shadow 0.4s ease; }
+        .footer-3d-card:hover .footer-logo-img { transform: scale(1.08) translateZ(15px); box-shadow: 0 0 30px rgba(79, 197, 184, 0.4); }
+        .footer-title { color: white; font-size: 19px; margin-bottom: 18px; position: relative; display: inline-block; }
+        .footer-title::after { content: ''; position: absolute; bottom: -6px; left: 0; width: 40px; height: 2px; background: var(--accent-teal); box-shadow: 0 0 10px var(--accent-teal); border-radius: 2px; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--text-sub); font-size: 14.5px; display: inline-flex; align-items: center; transition: 0.3s ease; }
+        .footer-links a i { margin-right: 8px; font-size: 12px; color: var(--accent-teal); transition: 0.3s ease; }
+        .footer-links a:hover { color: white; transform: translateX(6px); }
+        .footer-links a:hover i { transform: scale(1.3); }
+        .footer-contact-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; color: var(--text-sub); font-size: 14px; }
+        .footer-contact-item i { color: var(--accent-teal); font-size: 15px; margin-top: 4px; }
+        .interactive-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(79, 197, 184, 0.12); border: 1px solid rgba(79, 197, 184, 0.3); border-radius: 30px; color: var(--accent-teal); font-size: 13px; margin-top: 15px; cursor: pointer; transition: 0.3s; backdrop-filter: blur(5px); }
+        .interactive-badge:hover { background: rgba(79, 197, 184, 0.25); box-shadow: 0 0 20px rgba(79, 197, 184, 0.4); transform: translateZ(10px) scale(1.03); color: #fff; }
+        .copyright-bar { color: var(--text-sub); font-size: 13.5px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
 
         /* --- MODAL WINDOWS --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(15, 23, 30, 0.85);
-            backdrop-filter: blur(15px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-        .modal-overlay.active { 
-            display: flex;
-            opacity: 1; 
-            pointer-events: all; 
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 30, 0.85); backdrop-filter: blur(25px); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .modal-overlay.active { display: flex; opacity: 1; pointer-events: all; }
+        .modal-content-fullscreen { width: 95vw; height: 95vh; background: #ffffff; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 50px rgba(79,197,184,0.2); transform: scale(0.95); transition: transform 0.4s ease; border: 1px solid var(--glass-border-light); }
+        .modal-overlay.active .modal-content-fullscreen { transform: scale(1); }
+        .modal-content-fullscreen iframe { width: 100%; height: 100%; border: none; }
         
-        .modal-content-fullscreen {
-            width: 95vw;
-            height: 95vh;
-            background: #ffffff;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            transform: scale(0.95);
-            transition: transform 0.4s ease;
-        }
-        .modal-overlay.active .modal-content-fullscreen {
-            transform: scale(1);
-        }
-        .modal-content-fullscreen iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
         .close-btn {
-            position: absolute;
-            top: 15px; right: 20px;
-            font-size: 38px;
-            cursor: pointer;
-            background: #ffffff;
-            border: none;
-            color: #333;
-            z-index: 10;
-            transition: color 0.3s, transform 0.3s;
-            line-height: 1;
-            width: 40px; height: 40px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: absolute; top: 20px; left: 20px; width: 46px; height: 46px;
+            font-size: 28px; cursor: pointer; border: none; z-index: 10;
+            display: flex; align-items: center; justify-content: center; line-height: 1;
+            border-radius: 50%; color: #333; background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.8);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .close-btn:hover { color: #ff0000; transform: rotate(90deg); }
+        .close-btn:hover { color: #fff; background: rgba(233, 138, 66, 0.85); transform: rotate(90deg) scale(1.1); box-shadow: 0 15px 40px rgba(233, 138, 66, 0.5), inset 0 0 20px rgba(255,255,255,0.4); border-color: transparent; }
 
-        .modal-window {
-            width: 90%;
-            max-width: 620px;
-            background: var(--bg-dark-1);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 24px;
-            position: relative;
-            transform: scale(0.9);
-            transition: var(--transition);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 50px rgba(79, 197, 184, 0.2);
-            max-height: 90vh; 
-            overflow-y: auto; 
-        }
-        .image-window {
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            width: auto;
-            max-width: 95%;
-            display: flex;
-            justify-content: center;
-        }
+        .modal-window { width: 90%; max-width: 620px; border-radius: 24px; padding: 24px; position: relative; transform: scale(0.9); transition: var(--transition); max-height: 90vh; overflow-y: auto; }
+        .image-window { background: transparent; border: none; box-shadow: none; width: auto; max-width: 95%; display: flex; justify-content: center; }
         .modal-overlay.active .modal-window { transform: scale(1); }
-        .close-modal {
-            position: absolute;
-            top: -40px; right: 0;
-            color: white;
-            font-size: 26px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .close-modal:hover { color: var(--accent-teal); transform: rotate(90deg); }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 16px;
-            box-shadow: 0 0 30px rgba(79, 197, 184, 0.3);
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: none;
-        }
-
-        .contacts-center {
-            max-width: 850px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .contacts-list {
-            display: inline-block;
-            text-align: left;
-            margin-top: 20px;
-        }
+        .close-modal { position: absolute; top: -50px; right: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; font-size: 20px; cursor: pointer; transition: 0.3s; }
+        .close-modal:hover { color: var(--accent-orange); transform: rotate(90deg) scale(1.1); background: rgba(255,255,255,0.2); }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 0 40px rgba(0,0,0,0.8), 0 0 30px rgba(79, 197, 184, 0.3); border: 1px solid rgba(255,255,255,0.1); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
         /* --- RESPONSIVE STYLES --- */
         @media (max-width: 992px) {
-            .header {
-                width: calc(100% - 24px);
-                top: 12px;
-                height: 66px;
-                padding: 0 16px;
-            }
+            .header { width: calc(100% - 24px); top: 12px; height: 66px; padding: 0 16px; }
             .header.scrolled { top: 8px; height: 60px; }
             .nav-container { padding: 0 10px; }
             .logo { font-size: 22px; }
-
-            .nav-menu {
-                position: fixed;
-                top: 0; right: -100%;
-                width: 100%; height: 100vh;
-                background: rgba(22, 33, 44, 0.98);
-                backdrop-filter: blur(30px);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 40px;
-                transition: 0.4s ease;
-                z-index: 1001;
-                gap: 15px;
-            }
+            .nav-menu { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(22, 33, 44, 0.98); backdrop-filter: blur(30px); flex-direction: column; justify-content: center; align-items: center; padding: 40px; transition: 0.4s ease; z-index: 1001; gap: 15px; }
             .nav-menu.active { right: 0; }
             .nav-link { font-size: 18px; padding: 10px 20px; text-align: center; }
             .mobile-toggle { display: block; margin-left: 10px; }
             .desktop-cta { display: none !important; }
-
             .nav-item:hover .dropdown-ferrari { opacity: 0; visibility: hidden; }
-
-            .hero-title { font-size: 36px; }
             .hero-btns { justify-content: center; }
-            
             .about-grid, .stats-grid, .footer-3d-grid, .adv-grid { grid-template-columns: 1fr; }
-            
+            .reason-card { max-width: 100%; }
             .timeline-line { left: 20px; }
-            .timeline-item { flex-direction: column; align-items: flex-start; margin-left: 20px; margin-bottom: 40px; width: auto; }
-            .timeline-content { width: 100%; margin-left: 20px; }
-            .timeline-dot { left: 20px; top: 0; }
-            .step-num { left: -30px !important; right: auto !important; top: -5px; width: 32px; height: 32px; font-size: 14px;}
+            .timeline-item { flex-direction: column; align-items: flex-start; margin-left: 20px; margin-bottom: 30px; width: auto; }
+            .timeline-content { width: 100%; margin-left: 20px; padding: 20px; }
+            .timeline-dot { left: 20px; top: 22px; }
+            
+            .js-tilt-card { transform: none !important; }
+            .premium-glass:hover { transform: none; box-shadow: var(--glass-shadow); }
+        }
+
+        @media (max-width: 768px) {
+            .quote-inner { flex-direction: column; gap: 12px; }
+            .quote-text { font-size: 16px; }
         }
     </style>
 </head>
@@ -1244,7 +522,7 @@
     <div id="preloader">
         <div class="loader-ring"></div>
         <div class="loader-percent" id="loader-percent">0%</div>
-        <div class="loader-text" id="loader-text">Загрузка сайта...</div>
+        <div class="loader-text" id="loader-text">Загрузка платформы...</div>
         <div class="loader-bar-bg">
             <div class="loader-bar-fill" id="loader-bar-fill"></div>
         </div>
@@ -1255,17 +533,19 @@
     <!-- FILLOUT MODAL -->
     <div class="modal-overlay" id="filloutModal">
         <div class="modal-content-fullscreen">
-            <button class="close-btn" onclick="closeFilloutModal()">&times;</button>
+            <button class="close-btn" onclick="closeFilloutModal()" title="Закрыть"><i class="fas fa-times"></i></button>
             <iframe id="filloutIframe" src="" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
     <!-- MEDIA MODALS -->
     <div class="modal-overlay" id="video-modal">
-        <div class="modal-window" style="max-width: 900px;"> 
+        <div class="modal-window premium-glass" style="max-width: 900px; padding: 15px;"> 
             <div class="close-modal" id="close-video-btn"><i class="fas fa-times"></i></div>
-            <div class="video-container">
-                <iframe id="training-video" src="" allow="autoplay; fullscreen"></iframe>
+            <div class="tilt-content">
+                <div class="video-container">
+                    <iframe id="training-video" src="" allow="autoplay; fullscreen"></iframe>
+                </div>
             </div>
         </div>
     </div>
@@ -1273,11 +553,11 @@
     <div class="modal-overlay" id="image-modal">
         <div class="modal-window image-window">
             <div class="close-modal" id="close-image-btn"><i class="fas fa-times"></i></div>
-            <img id="course-image-full" src="" alt="Course Detail" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 0 50px rgba(0,0,0,0.8);">
+            <img id="course-image-full" src="" alt="Course Detail" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1);">
         </div>
     </div>
 
-    <!-- REDESIGNED FROSTED GLASS HEADER -->
+    <!-- HEADER -->
     <header class="header" id="header">
         <div class="nav-container">
             <a href="#home" class="logo scroll-trigger">
@@ -1290,22 +570,16 @@
                         <a href="#about" class="nav-link scroll-trigger">О компании</a>
                         <div class="dropdown-ferrari">
                             <div class="dropdown-title">ТОО "SafetyAll"</div>
-                            <p class="dropdown-text">
-                                Более 20 лет практического опыта в сфере безопасности и охраны труда. Мы объединяем экспертные знания с передовыми IT-технологиями для качественного дистанционного обучения.
-                            </p>
+                            <p class="dropdown-text">Более 20 лет практического опыта в сфере безопасности и охраны труда. Мы объединяем экспертные знания с передовыми IT-технологиями для качественного дистанционного обучения.</p>
                         </div>
                     </li>
-
                     <li class="nav-item">
                         <a href="#advantages" class="nav-link scroll-trigger">Преимущества</a>
                         <div class="dropdown-ferrari">
                             <div class="dropdown-title">Технологии</div>
-                            <p class="dropdown-text">
-                                Обучение на двух языках, умный ИИ-помощник, полная адаптация под мобильные устройства и мгновенная отправка документов.
-                            </p>
+                            <p class="dropdown-text">Обучение на двух языках, умный ИИ-помощник, полная адаптация под мобильные устройства и мгновенная отправка документов.</p>
                         </div>
                     </li>
-
                     <li class="nav-item">
                         <a href="#courses" class="nav-link scroll-trigger">Курсы</a>
                         <div class="dropdown-ferrari">
@@ -1318,17 +592,13 @@
                             </ul>
                         </div>
                     </li>
-
                     <li class="nav-item">
                         <a href="#process" class="nav-link scroll-trigger">Обучение</a>
                         <div class="dropdown-ferrari">
                             <div class="dropdown-title">Процесс</div>
-                            <p class="dropdown-text">
-                                Полностью дистанционно. От подачи заявки до получения сертификата — всё онлайн, без отрыва от производства и лишней бюрократии.
-                            </p>
+                            <p class="dropdown-text">Полностью дистанционно. От подачи заявки до получения сертификата — всё онлайн, без отрыва от производства и лишней бюрократии.</p>
                         </div>
                     </li>
-
                     <li class="nav-item">
                         <a href="#contacts" class="nav-link scroll-trigger">Контакты</a>
                         <div class="dropdown-ferrari" style="width: 350px;">
@@ -1336,10 +606,9 @@
                             <div class="dropdown-contact-row"><i class="fas fa-phone text-cyan"></i> +7-701-716-1721</div>
                             <div class="dropdown-contact-row"><i class="fas fa-phone text-cyan"></i> +7-747-480-2877</div>
                             <div class="dropdown-contact-row"><i class="fas fa-envelope text-cyan"></i> ritm_asia@mail.ru</div>
-                            <div class="dropdown-contact-row"><i class="fas fa-map-marker-alt text-cyan"></i> г. Алматы, мкн "Мамыр", б-р Садовый, д. 3, оф. 1</div>
+                            <div class="dropdown-contact-row"><i class="fas fa-map-marker-alt text-cyan"></i> г. Алматы, мкн "Мамыр", б-р Садовый, д. 3</div>
                         </div>
                     </li>
-
                     <li style="margin-top: 15px; display: none;" class="mobile-cta-btn">
                         <a href="#" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;" class="btn btn-primary">Создать заявку</a>
                     </li>
@@ -1359,56 +628,53 @@
     </header>
 
     <section class="hero" id="home">
-        <div class="hero-modern-card">
-            <div class="hero-pre-title gsap-hero-reveal">
-                ПРОФЕССИОНАЛЬНОЕ ОБУЧЕНИЕ<br>
-                ПО БЕЗОПАСНОСТИ И ОХРАНЕ ТРУДА
-            </div>
-            
-            <h1 class="hero-big-brand gsap-hero-reveal">
-                SAFETYALL
-            </h1>
-            
-            <p class="hero-subtitle gsap-hero-reveal">
-                Уникальная образовательная платформа в Казахстане с использованием искусственного интеллекта.<br>
-                Программы соответствуют законодательству РК.
-            </p>
-            
-            <div class="hero-btns gsap-hero-reveal">
-                <a href="#" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;" class="btn btn-primary">Создать заявку</a>
-                <a href="#courses" class="btn btn-secondary scroll-trigger">Посмотреть курсы</a>
+        <div class="hero-modern-card js-tilt-card">
+            <div class="tilt-content" style="align-items: center; justify-content: center;">
+                <div class="hero-pre-title gsap-hero-reveal">ПРОФЕССИОНАЛЬНОЕ ОБУЧЕНИЕ<br>ПО БЕЗОПАСНОСТИ И ОХРАНЕ ТРУДА</div>
+                <h1 class="hero-big-brand gsap-hero-reveal">SAFETYALL</h1>
+                <p class="hero-subtitle gsap-hero-reveal">Уникальная образовательная платформа в Казахстане с использованием искусственного интеллекта.<br>Программы соответствуют законодательству РК.</p>
+                <div class="hero-btns gsap-hero-reveal">
+                    <a href="#" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;" class="btn btn-primary">Создать заявку</a>
+                    <a href="#courses" class="btn btn-secondary scroll-trigger">Посмотреть курсы</a>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="section-padding" id="about">
         <div class="container">
-            <div class="glass-panel" style="padding: clamp(30px, 5vw, 60px);">
-                <div class="about-grid">
-                    <div>
-                        <h2 style="margin-bottom: 20px; text-align: left;">НАДЕЖНЫЙ ПАРТНЕР <span class="text-cyan">ДЛЯ БИЗНЕСА</span></h2>
-                        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 16px;">
-                            ТОО «SafetyALL» - более 20 лет практического опыта в области безопасности и охраны труда, пожарной, промышленной и электробезопасности. Мы специализируемся на дистанционном обучении рабочих и ИТР.
-                        </p>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <span class="stat-num">20+</span>
-                                <span class="stat-desc">Лет опыта</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-num">100%</span>
-                                <span class="stat-desc">Дистанционно</span>
+            <div class="premium-glass js-tilt-card" style="padding: clamp(25px, 4vw, 50px);">
+                <div class="tilt-content">
+                    <div class="about-grid">
+                        <div>
+                            <h2 style="margin-bottom: 18px; text-align: left;">НАДЕЖНЫЙ ПАРТНЕР <span class="text-cyan">ДЛЯ БИЗНЕСА</span></h2>
+                            <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 15px;">
+                                ТОО «SafetyALL» - более 20 лет практического опыта в области безопасности и охраны труда, пожарной, промышленной и электробезопасности. Мы специализируемся на дистанционном обучении рабочих и ИТР.
+                            </p>
+                            <div class="stats-grid">
+                                <div class="stat-card premium-glass">
+                                    <div class="tilt-content">
+                                        <span class="stat-num">20+</span>
+                                        <span class="stat-desc">Лет опыта</span>
+                                    </div>
+                                </div>
+                                <div class="stat-card premium-glass">
+                                    <div class="tilt-content">
+                                        <span class="stat-num">100%</span>
+                                        <span class="stat-desc">Дистанционно</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-                        <img src="https://images.fillout.com/orgid-544431/flowpublicid-bkL8jQr3u4us/widgetid-meta-link-thumbnail/gQQX8rdS5GFMDmdbudTs5R/756d2146-533d-46b9-9d71-5123d701de08.jpg?a=tXHe5jztzvsufFhjNgSzZN" alt="SafetyAll Logo" class="about-logo-3d">
-                        
-                        <div style="margin-top: 30px; border-top: 1px solid var(--glass-border); padding-top: 20px; width: 85%;">
-                            <h4 style="font-size: 20px; color: var(--text-main); margin-bottom: 15px; letter-spacing: 1px;">АТТЕСТАТ ПРОМЫШЛЕННОЙ БЕЗОПАСНОСТИ</h4>
-                            <button class="btn btn-primary open-image-btn" data-image="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-stzH/6MxQYt8BDQ16QqerEt8JRR/bre.png?a=5N42EQ2KyYRWNyZ6p8Kmeo">
-                                <i class="fas fa-eye" style="margin-right: 10px;"></i> Показать
-                            </button>
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                            <img src="https://images.fillout.com/orgid-544431/flowpublicid-bkL8jQr3u4us/widgetid-meta-link-thumbnail/gQQX8rdS5GFMDmdbudTs5R/756d2146-533d-46b9-9d71-5123d701de08.jpg?a=tXHe5jztzvsufFhjNgSzZN" alt="SafetyAll Logo" class="about-logo-3d">
+                            
+                            <div style="margin-top: 24px; border-top: 1px solid var(--glass-border-dark); padding-top: 18px; width: 85%;">
+                                <h4 style="font-size: 18px; color: var(--text-main); margin-bottom: 12px; letter-spacing: 1px;">АТТЕСТАТ ПРОМЫШЛЕННОЙ БЕЗОПАСНОСТИ</h4>
+                                <button class="btn btn-primary open-image-btn" data-image="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-stzH/6MxQYt8BDQ16QqerEt8JRR/bre.png?a=5N42EQ2KyYRWNyZ6p8Kmeo">
+                                    <i class="fas fa-eye" style="margin-right: 10px;"></i> Показать
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1418,6 +684,7 @@
 
     <div class="container"><div class="glass-divider"></div></div>
 
+    <!-- 5 REASONS SECTION -->
     <section class="section-padding" id="importance">
         <div class="container">
             <div class="reasons-header">
@@ -1426,125 +693,128 @@
             </div>
 
             <div class="reasons-grid">
-                <div class="reason-card">
-                    <i class="fas fa-cubes reason-icon"></i>
-                    <h3 class="reason-title">1. Централизация бизнес-процессов</h3>
-                    <p class="reason-desc">Мы реализуем свою деятельность по принципу «чем проще – тем лучше». Автоматизация процессов на нашей онлайн-платформе и отсутствие «бюрократических проволочек» обеспечивают консолидацию всех этапов работ, исключая необходимость в заполнения заявок на бумажном носителе.</p>
+                <div class="reason-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-cubes reason-icon"></i>
+                        <h3 class="reason-title">1. Централизация процессов</h3>
+                        <p class="reason-desc">Автоматизация процессов на платформе и отсутствие бюрократии обеспечивают консолидацию всех этапов работ онлайн.</p>
+                    </div>
                 </div>
 
-                <div class="reason-card">
-                    <i class="fas fa-clock reason-icon"></i>
-                    <h3 class="reason-title">2. Исполнение обязательств</h3>
-                    <p class="reason-desc">Сотрудничество строится на строгом соблюдении регламентов и сроков, зафиксированных в договоре. Такой подход нивелирует юридические и операционные риски во взаимодействии с контрагентами.</p>
+                <div class="reason-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-clock reason-icon"></i>
+                        <h3 class="reason-title">2. Исполнение обязательств</h3>
+                        <p class="reason-desc">Строгое соблюдение регламентов и сроков, зафиксированных в договоре, нивелирует любые юридические и операционные риски.</p>
+                    </div>
                 </div>
 
-                <div class="reason-card">
-                    <i class="fas fa-balance-scale reason-icon"></i>
-                    <h3 class="reason-title">3. ДОСТУПНАЯ ЦЕНОВАЯ ПОЛИТИКА</h3>
-                    <p class="reason-desc">Структура стоимости наших услуг формируется на основе объективных рыночных индикаторов и качественных показателей. Мы – клиенториентированная компания и гарантируем полное соответствие итоговых сумм ценам на рынке и принципу «цена-качество».</p>
+                <div class="reason-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-balance-scale reason-icon"></i>
+                        <h3 class="reason-title">3. Доступная цена</h3>
+                        <p class="reason-desc">Структура стоимости формируется на основе объективных рыночных индикаторов, гарантируя идеальное соотношение «цена-качество».</p>
+                    </div>
                 </div>
 
-                <div class="reason-card">
-                    <i class="fas fa-gavel reason-icon"></i>
-                    <h3 class="reason-title">4. ПРОФЕССИОНАЛЬНЫЙ ПОДХОД</h3>
-                    <p class="reason-desc">Мы обеспечиваем всестороннюю консультационную поддержку в рамках правового поля Республики Казахстан. Наши специалисты курируют Клиента на всех стадиях обучения, обеспечивая «обратную связь» и гарантируя соответствие всех процессов актуальным законодательным требованиям.</p>
+                <div class="reason-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-gavel reason-icon"></i>
+                        <h3 class="reason-title">4. Профессионализм</h3>
+                        <p class="reason-desc">Всесторонняя поддержка в рамках правового поля РК. Курируем клиента на всех стадиях, обеспечивая полное соответствие законам.</p>
+                    </div>
                 </div>
 
-                <div class="reason-card">
-                    <i class="fas fa-hourglass-half reason-icon"></i>
-                    <h3 class="reason-title">5. Оптимизация временных ресурсов</h3>
-                    <p class="reason-desc">Внутренние процессы компании выстроены с приоритетом на оперативность. Мы обеспечиваем реализацию задач в сжатые сроки, сохраняя неизменно высокие стандарты качества.</p>
-                </div>
-            </div>
-
-            <div style="margin-top: 80px; text-align: center;">
-                <h2 class="section-title" style="margin-bottom: 30px;">
-                    <span class="text-cyan">Нам</span> доверяют
-                </h2>
-                
-                <div class="glass-panel" style="
-                    padding: 35px; 
-                    display: flex; 
-                    justify-content: center; 
-                    align-items: center;     
-                    gap: 50px;               
-                    flex-wrap: wrap;         
-                ">
-                    <img src="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-mhtW/uSzbGJd9dpimiU4cqMWJfj/logo.jpg?a=5EZa6Pnb4vbLbTNPcnCxWg" 
-                         alt="Партнеры 1" 
-                         style="max-height: 75px; width: auto; filter: brightness(1.1); border-radius: 6px;">
-
-                    <img src="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-sGC7/qVrbTf7Mevu7LQcWbsWhNM/tetra-pak-two-liner.png?a=a726GNGX3HUtmNK9FkFi51" 
-                         alt="Tetra Pak" 
-                         style="max-height: 75px; width: auto; filter: brightness(1.1);">
+                <div class="reason-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-hourglass-half reason-icon"></i>
+                        <h3 class="reason-title">5. Оптимизация времени</h3>
+                        <p class="reason-desc">Внутренние процессы выстроены с приоритетом на оперативность. Реализация задач в сжатые сроки с высочайшим качеством.</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="reasons-footer-text">
-                Надёжный партнёр — это тот, кто снимает с вас лишние риски и берёт ответственность за результат.
+            <!-- Redesigned Quote Card -->
+            <div class="reasons-quote-card premium-glass js-tilt-card">
+                <div class="tilt-content">
+                    <div class="quote-inner">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <div class="quote-text">Надёжный партнёр — это тот, кто снимает с вас лишние риски и берёт ответственность за результат.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 50px; text-align: center;">
+                <h2 class="section-title" style="margin-bottom: 20px;"><span class="text-cyan">Нам</span> доверяют</h2>
+                <div class="premium-glass js-tilt-card" style="padding: 10px;">
+                    <div class="tilt-content">
+                        <div class="marquee-wrapper">
+                            <div class="marquee-content">
+                                <img src="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-mhtW/uSzbGJd9dpimiU4cqMWJfj/logo.jpg?a=5EZa6Pnb4vbLbTNPcnCxWg" alt="Партнеры 1" style="border-radius: 6px;">
+                                <img src="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-sGC7/qVrbTf7Mevu7LQcWbsWhNM/tetra-pak-two-liner.png?a=a726GNGX3HUtmNK9FkFi51" alt="Tetra Pak">
+                                <img src="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-mhtW/uSzbGJd9dpimiU4cqMWJfj/logo.jpg?a=5EZa6Pnb4vbLbTNPcnCxWg" alt="Партнеры 1" style="border-radius: 6px;">
+                                <img src="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-sGC7/qVrbTf7Mevu7LQcWbsWhNM/tetra-pak-two-liner.png?a=a726GNGX3HUtmNK9FkFi51" alt="Tetra Pak">
+                                <img src="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-mhtW/uSzbGJd9dpimiU4cqMWJfj/logo.jpg?a=5EZa6Pnb4vbLbTNPcnCxWg" alt="Партнеры 1" style="border-radius: 6px;">
+                                <img src="https://images.fillout.com/orgid-544431/flowpublicid-utG18R2nnGus/widgetid-sGC7/qVrbTf7Mevu7LQcWbsWhNM/tetra-pak-two-liner.png?a=a726GNGX3HUtmNK9FkFi51" alt="Tetra Pak">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <div class="container"><div class="glass-divider"></div></div>
 
+    <!-- ADVANTAGES SECTION (Compact Version) -->
     <section class="section-padding" id="advantages">
         <div class="container">
-            <div style="text-align: center; margin-bottom: 50px;">
-                <h2 class="section-title" style="margin-bottom: 20px;">НАШИ КОНКУРЕНТНЫЕ ПРЕИМУЩЕСТВА<br>
-                    <span class="text-cyan">ТЕХНОЛОГИЧНОСТЬ И СКОРОСТЬ</span>
-                </h2>
-                <p class="adv-lead">
-                    Мы объединили экспертный подход в обучении с передовыми цифровыми решениями.<br>
-                    Платформа SafetyAll экономит время ваших сотрудников и обеспечивает прозрачность аттестации.
-                </p>
+            <div style="text-align: center; margin-bottom: 35px;">
+                <h2 class="section-title" style="margin-bottom: 16px;">НАШИ КОНКУРЕНТНЫЕ ПРЕИМУЩЕСТВА<br><span class="text-cyan">ТЕХНОЛОГИЧНОСТЬ И СКОРОСТЬ</span></h2>
+                <p class="adv-lead">Мы объединили экспертный подход в обучении с передовыми цифровыми решениями.<br>Платформа SafetyAll экономит время ваших сотрудников и обеспечивает прозрачность аттестации.</p>
             </div>
 
             <div class="adv-grid">
-                <div class="adv-card">
-                    <i class="fas fa-language adv-icon"></i>
-                    <h3 class="adv-title">Обучение на двух языках</h3>
-                    <p class="adv-desc">
-                        Весь образовательный процесс, включая итоговое тестирование, доступен на государственном и русском языках, что обеспечивает полное соответствие законодательству Республики Казахстан.
-                    </p>
-                </div>
-
-                <div class="adv-card">
-                    <i class="fas fa-brain adv-icon"></i>
-                    <h3 class="adv-title">Персональный ИИ-Помощник</h3>
-                    <div class="ai-features">
-                        <div class="ai-item">
-                            <strong>Живой диалог:</strong> Интерактивное обучение на 10+ языках.
-                        </div>
-                        <div class="ai-item">
-                            <strong>Свобода запроса:</strong> ИИ объясняет сложные темы простыми словами.
-                        </div>
-                        <div class="ai-item">
-                            <strong>Готовые сценарии:</strong> Разборы реальных кейсов и ситуаций.
-                        </div>
+                <div class="adv-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-language adv-icon"></i>
+                        <h3 class="adv-title">Обучение на двух языках</h3>
+                        <p class="adv-desc">Весь образовательный процесс, включая итоговое тестирование, доступен на государственном и русском языках, что обеспечивает полное соответствие законодательству РК.</p>
                     </div>
-                    <button class="btn btn-primary" id="open-video-btn" style="width: 100%; margin-top: 20px; font-size: 14px; padding: 12px;">
-                        <i class="fas fa-play-circle" style="margin-right: 10px;"></i> Как пользоваться обучением ИИ
-                    </button>
                 </div>
 
-                <div class="adv-card">
-                    <i class="fas fa-mobile-alt adv-icon"></i>
-                    <h3 class="adv-title">Мобильное обучение</h3>
-                    <p class="adv-desc">
-                        Платформа полностью адаптирована под мобильные устройства. Сотрудники проходят обучение, смотрят видео и сдают тесты прямо со смартфона — без отрыва от производства и поиска компьютера.
-                    </p>
-                    <button class="btn btn-primary" id="open-mobile-video-btn" style="width: 100%; margin-top: 20px; font-size: 14px; padding: 12px;">
-                        <i class="fas fa-play-circle" style="margin-right: 10px;"></i> о платформе обучения
-                    </button>
+                <div class="adv-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-brain adv-icon"></i>
+                        <h3 class="adv-title">Персональный ИИ-Помощник</h3>
+                        <div class="ai-features">
+                            <div class="ai-item"><strong>Живой диалог:</strong> Интерактивное обучение на 10+ языках.</div>
+                            <div class="ai-item"><strong>Свобода запроса:</strong> ИИ объясняет сложные темы простыми словами.</div>
+                            <div class="ai-item"><strong>Готовые сценарии:</strong> Разборы реальных кейсов и ситуаций.</div>
+                        </div>
+                        <button class="btn btn-primary" id="open-video-btn" style="width: 100%; margin-top: 16px; font-size: 13.5px; padding: 10px;">
+                            <i class="fas fa-play-circle" style="margin-right: 8px;"></i> Как пользоваться обучением ИИ
+                        </button>
+                    </div>
                 </div>
 
-                <div class="adv-card">
-                    <i class="fas fa-bolt adv-icon"></i>
-                    <h3 class="adv-title">Оперативная отправка результата</h3>
-                    <p class="adv-desc">
-                        После тестирования вы получаете скан-версии протоколов и удостоверений — в папку общего доступа, ссылка на которую будет выслана на вашу почту. Оригиналы документов отправляются к вам курьером или почтой.
-                    </p>
+                <div class="adv-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-mobile-alt adv-icon"></i>
+                        <h3 class="adv-title">Мобильное обучение</h3>
+                        <p class="adv-desc">Платформа полностью адаптирована под мобильные устройства. Сотрудники проходят обучение, смотрят видео и сдают тесты прямо со смартфона — без отрыва от производства.</p>
+                        <button class="btn btn-primary" id="open-mobile-video-btn" style="width: 100%; margin-top: 16px; font-size: 13.5px; padding: 10px;">
+                            <i class="fas fa-play-circle" style="margin-right: 8px;"></i> О платформе обучения
+                        </button>
+                    </div>
+                </div>
+
+                <div class="adv-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <i class="fas fa-bolt adv-icon"></i>
+                        <h3 class="adv-title">Оперативная отправка</h3>
+                        <p class="adv-desc">После тестирования вы получаете скан-версии протоколов и удостоверений в папку общего доступа (ссылка на почту). Оригиналы документов отправляются курьером или почтой.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1552,131 +822,203 @@
 
     <div class="container"><div class="glass-divider"></div></div>
 
+    <!-- COURSES CATALOG -->
     <section class="section-padding" id="courses">
         <div class="container">
-            <div style="text-align: center; margin-bottom: 60px;">
-                <h2 class="section-title" style="margin-bottom: 20px;">КАТАЛОГ КУРСОВ</h2>
-                <p style="color: var(--text-sub); font-size: 17px; letter-spacing: 0.5px;">
-                    Системное обучение по ключевым направлениям безопасности труда
-                </p>
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 class="section-title" style="margin-bottom: 12px;">КАТАЛОГ КУРСОВ</h2>
+                <p style="color: var(--text-sub); font-size: 16px; letter-spacing: 0.5px;">Системное обучение по ключевым направлениям безопасности труда</p>
             </div>
 
             <div class="courses-grid">
-                <div class="course-module">
-                    <div class="module-icon-zone">
-                        <i class="fas fa-hard-hat module-icon"></i>
-                        <div class="module-indicator"></div>
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-hard-hat module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Безопасность и<br>охрана труда</h3>
+                        <p class="module-desc">Базовые нормы и правила безопасности для всех категорий сотрудников.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                     </div>
-                    <h3 class="module-title">Безопасность и<br>охрана труда</h3>
-                    <p class="module-desc">Базовые нормы и правила безопасности для всех категорий сотрудников.</p>
-                    <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                 </div>
 
-                <div class="course-module">
-                    <div class="module-icon-zone">
-                        <i class="fas fa-industry module-icon"></i>
-                        <div class="module-indicator"></div>
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-industry module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Промышленная<br>безопасность</h3>
+                        <p class="module-desc">Требования безопасности к опасным устройствам и на опасных производственных объектах.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                     </div>
-                    <h3 class="module-title">Промышленная<br>безопасность</h3>
-                    <p class="module-desc">Требования безопасности к опасным устройствам и на опасных производственных объектах.</p>
-                    <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                 </div>
 
-                <div class="course-module">
-                    <div class="module-icon-zone">
-                        <i class="fas fa-fire-extinguisher module-icon"></i>
-                        <div class="module-indicator"></div>
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-fire-extinguisher module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Пожарно-технический<br>минимум</h3>
+                        <p class="module-desc">Профилактика возгораний и порядок действий при ЧС.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                     </div>
-                    <h3 class="module-title">Пожарно-технический<br>минимум</h3>
-                    <p class="module-desc">Профилактика возгораний и порядок действий при ЧС.</p>
-                    <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                 </div>
 
-                <div class="course-module">
-                    <div class="module-icon-zone">
-                        <i class="fas fa-bolt module-icon"></i>
-                        <div class="module-indicator"></div>
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-bolt module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Электробезопасность</h3>
+                        <p class="module-desc">Безопасная работа с электроустановками и получение группы допуска.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                     </div>
-                    <h3 class="module-title">Электробезопасность</h3>
-                    <p class="module-desc">Безопасная работа с электроустановками и получение группы допуска.</p>
-                    <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                 </div>
 
-                <div class="course-module">
-                    <div class="module-icon-zone">
-                        <i class="fas fa-building module-icon"></i>
-                        <div class="module-indicator"></div>
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-building module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Работы на<br>высоте</h3>
+                        <p class="module-desc">Требования безопасности при организации и проведении работ на высоте, применение систем спасения.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                     </div>
-                    <h3 class="module-title">Работы на<br>высоте</h3>
-                    <p class="module-desc">Требования безопасности при организации и проведении работ на высоте, применение систем спасения.</p>
-                    <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
                 </div>
+
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-medkit module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Первая<br>помощь</h3>
+                        <p class="module-desc">Изучение алгоритмов оказания первой помощи пострадавшим до прибытия медицинских служб.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
+                    </div>
+                </div>
+
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-burn module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Газовое<br>хозяйство</h3>
+                        <p class="module-desc">Требования безопасной эксплуатации газового оборудования, контроль состояния и выполнение работ.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
+                    </div>
+                </div>
+
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-temperature-high module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Котлы</h3>
+                        <p class="module-desc">Правила безопасной эксплуатации котельного оборудования, контроль параметров и требования промбезопасности.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
+                    </div>
+                </div>
+
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-wind module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Трубопроводы пара<br>и горячей воды</h3>
+                        <p class="module-desc">Безопасная эксплуатация трубопроводов, контроль давления и техническое обслуживание.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
+                    </div>
+                </div>
+
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-truck-loading module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">ГПМ</h3>
+                        <p class="module-desc">Безопасная эксплуатация грузоподъемных механизмов, организация работ, осмотр оборудования.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
+                    </div>
+                </div>
+
+                <div class="course-module premium-glass js-tilt-card">
+                    <div class="tilt-content">
+                        <div class="module-icon-zone"><i class="fas fa-compress-arrows-alt module-icon"></i><div class="module-indicator"></div></div>
+                        <h3 class="module-title">Сосуды</h3>
+                        <p class="module-desc">Эксплуатация сосудов под давлением, техническое освидетельствование, контроль арматуры.</p>
+                        <button class="module-btn" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;">Пройти обучение</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <div class="container"><div class="glass-divider"></div></div>
 
+    <!-- PROCESS SECTION TIMELINE (Fixed Number Overlap) -->
     <section class="section-padding" id="process">
         <div class="container">
             <h2 class="section-title">КАК ПРОХОДИТ <span class="text-cyan">ОБУЧЕНИЕ</span></h2>
             
             <div class="timeline-container">
-                <div class="timeline-line">
-                    <div class="timeline-beam"></div>
-                </div>
+                <div class="timeline-line"><div class="timeline-beam"></div></div>
 
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <div class="step-num">1</div>
-                        <h4>Заявка на сайте</h4>
-                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">Оставьте заявку, чтобы менеджер связался с вами.</p>
+                    <div class="timeline-content premium-glass js-tilt-card">
+                        <div class="tilt-content">
+                            <div class="step-card-header">
+                                <span class="step-badge">ЭТАП 01</span>
+                            </div>
+                            <h4 class="step-title">Заявка на сайте</h4>
+                            <p class="step-desc">Оставьте заявку, чтобы менеджер связался с вами.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <div class="step-num">2</div>
-                        <h4>Консультация</h4>
-                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">Подбор необходимого курса и программы.</p>
+                    <div class="timeline-content premium-glass js-tilt-card">
+                        <div class="tilt-content">
+                            <div class="step-card-header">
+                                <span class="step-badge">ЭТАП 02</span>
+                            </div>
+                            <h4 class="step-title">Консультация</h4>
+                            <p class="step-desc">Подбор необходимого курса и программы.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <div class="step-num">3</div>
-                        <h4>Оплата</h4>
-                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">Заключение договора и оплата счета.</p>
+                    <div class="timeline-content premium-glass js-tilt-card">
+                        <div class="tilt-content">
+                            <div class="step-card-header">
+                                <span class="step-badge">ЭТАП 03</span>
+                            </div>
+                            <h4 class="step-title">Оплата</h4>
+                            <p class="step-desc">Заключение договора и оплата счета.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <div class="step-num">4</div>
-                        <h4>Доступ к платформе</h4>
-                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">Сотрудники получают логин и пароль для обучения.</p>
+                    <div class="timeline-content premium-glass js-tilt-card">
+                        <div class="tilt-content">
+                            <div class="step-card-header">
+                                <span class="step-badge">ЭТАП 04</span>
+                            </div>
+                            <h4 class="step-title">Доступ к платформе</h4>
+                            <p class="step-desc">Сотрудники получают логин и пароль для обучения.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <div class="step-num">5</div>
-                        <h4>Тестирование</h4>
-                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">Проверка знаний онлайн в удобное время, без привязки к времени и месту.</p>
+                    <div class="timeline-content premium-glass js-tilt-card">
+                        <div class="tilt-content">
+                            <div class="step-card-header">
+                                <span class="step-badge">ЭТАП 05</span>
+                            </div>
+                            <h4 class="step-title">Тестирование</h4>
+                            <p class="step-desc">Проверка знаний онлайн в удобное время, без привязки к месту.</p>
+                        </div>
                     </div>
                 </div>
 
-                 <div class="timeline-item">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="glass-panel timeline-content">
-                        <div class="step-num">6</div>
-                        <h4>Получение документов</h4>
-                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">Оригиналы протоколов и удостоверений.</p>
+                    <div class="timeline-content premium-glass js-tilt-card">
+                        <div class="tilt-content">
+                            <div class="step-card-header">
+                                <span class="step-badge">ЭТАП 06</span>
+                            </div>
+                            <h4 class="step-title">Получение документов</h4>
+                            <p class="step-desc">Оригиналы протоколов и удостоверений доставляются вам.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1685,70 +1027,71 @@
 
     <div class="container"><div class="glass-divider"></div></div>
 
-    <section class="section-padding" style="text-align: center; position: relative;">
+    <!-- CTA SECTION (Reduced Spacing) -->
+    <section class="cta-padding">
         <div class="container">
-            <h2 style="margin-bottom: 24px;">ГОТОВЫ НАЧАТЬ?</h2>
-            <a href="#" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;" class="btn btn-primary" style="transform: scale(1.1);">Создать заявку</a>
+            <h2 style="margin-bottom: 18px;">ГОТОВЫ НАЧАТЬ?</h2>
+            <a href="#" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work'); return false;" class="btn btn-primary" style="transform: scale(1.05);">Создать заявку</a>
         </div>
     </section>
 
+    <div class="container"><div class="glass-divider"></div></div>
+
     <section class="section-padding" id="contacts">
         <div class="container">
-            <div class="glass-panel contacts-center" style="padding: clamp(35px, 5vw, 60px);">
-                <h2 style="margin-bottom: 30px;">КОНТАКТЫ</h2>
-                <h3 style="color: white; margin-bottom: 10px; font-size: 26px;">ТОО "Safetyall"</h3>
-                <div style="width: 60px; height: 3px; background: var(--accent-teal); margin: 0 auto 30px auto; border-radius: 2px;"></div>
-                
-                <ul class="contacts-list" style="font-size: 18px;">
-                    <li style="margin-bottom: 30px; display: flex; align-items: flex-start;">
-                        <i class="fas fa-map-marker-alt text-cyan" style="width: 30px; margin-top: 6px;"></i>
-                        <span style="line-height: 1.4; color: var(--text-muted);">г. Алматы, мкн "Мамыр",<br>бульвар Садовый, дом 3, офис 1</span>
-                    </li>
-                    <li style="margin-bottom: 30px; display: flex; align-items: flex-start;">
-                        <i class="fas fa-phone text-cyan" style="width: 30px; margin-top: 6px;"></i>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <a href="tel:+77017161721" style="font-weight: 600; color: white;">+7-701-716-1721</a>
-                            <a href="tel:+77474802877" style="font-weight: 600; color: white;">+7-747-480-2877</a>
-                        </div>
-                    </li>
-                    <li style="margin-bottom: 20px; display: flex; align-items: center;">
-                        <i class="fas fa-envelope text-cyan" style="width: 30px;"></i>
-                        <a href="mailto:ritm_asia@mail.ru" style="color: white;">ritm_asia@mail.ru</a>
-                    </li>
-                </ul>
+            <div class="premium-glass contacts-center js-tilt-card" style="padding: clamp(30px, 4vw, 50px);">
+                <div class="tilt-content">
+                    <h2 style="margin-bottom: 24px;">КОНТАКТЫ</h2>
+                    <h3 style="color: white; margin-bottom: 10px; font-size: 24px; text-shadow: 0 0 20px rgba(255,255,255,0.4);">ТОО "Safetyall"</h3>
+                    <div style="width: 60px; height: 3px; background: var(--accent-teal); margin: 0 auto 24px auto; border-radius: 2px; box-shadow: 0 0 10px var(--accent-teal);"></div>
+                    
+                    <ul class="contacts-list" style="font-size: 17px;">
+                        <li style="margin-bottom: 24px; display: flex; align-items: flex-start;">
+                            <i class="fas fa-map-marker-alt text-cyan" style="width: 30px; margin-top: 6px; font-size: 20px; filter: drop-shadow(0 0 10px rgba(79,197,184,0.5));"></i>
+                            <span style="line-height: 1.4; color: var(--text-muted);">г. Алматы, мкн "Мамыр",<br>бульвар Садовый, дом 3, офис 1</span>
+                        </li>
+                        <li style="margin-bottom: 24px; display: flex; align-items: flex-start;">
+                            <i class="fas fa-phone text-cyan" style="width: 30px; margin-top: 6px; font-size: 20px; filter: drop-shadow(0 0 10px rgba(79,197,184,0.5));"></i>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <a href="tel:+77017161721" style="font-weight: 600; color: white;">+7-701-716-1721</a>
+                                <a href="tel:+77474802877" style="font-weight: 600; color: white;">+7-747-480-2877</a>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 20px; display: flex; align-items: center;">
+                            <i class="fas fa-envelope text-cyan" style="width: 30px; font-size: 20px; filter: drop-shadow(0 0 10px rgba(79,197,184,0.5));"></i>
+                            <a href="mailto:ritm_asia@mail.ru" style="color: white;">ritm_asia@mail.ru</a>
+                        </li>
+                    </ul>
 
-                <div style="margin-top: 40px;">
-                    <a href="https://wa.me/7017161721" class="btn btn-primary" target="_blank">Написать менеджеру</a>
+                    <div style="margin-top: 30px;">
+                        <a href="https://wa.me/7017161721" class="btn btn-primary" target="_blank">Написать менеджеру</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- REDESIGNED INTERACTIVE 3D FOOTER -->
+    <!-- FOOTER -->
     <footer class="footer-3d">
         <div class="container">
             <div class="footer-3d-grid">
                 
-                <!-- 3D CARD 1: BRAND -->
-                <div class="footer-3d-card js-tilt-card">
-                    <div class="footer-3d-content">
+                <div class="footer-3d-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
                         <a href="#home" class="logo scroll-trigger">SAFETY<span>ALL</span></a>
-                        <p style="color: var(--text-sub); font-size: 14px; margin-top: 14px; line-height: 1.6;">
-                            Продвинутая цифровая платформа дистанционного обучения по безопасности и охране труда с ИИ-ассистентом.
-                        </p>
+                        <p style="color: var(--text-sub); font-size: 13.5px; margin-top: 12px; line-height: 1.5;">Продвинутая цифровая платформа дистанционного обучения по безопасности и охране труда с ИИ-ассистентом.</p>
                         <div class="footer-logo-box">
                             <img src="https://images.fillout.com/orgid-544431/flowpublicid-bkL8jQr3u4us/widgetid-meta-link-thumbnail/gQQX8rdS5GFMDmdbudTs5R/756d2146-533d-46b9-9d71-5123d701de08.jpg?a=tXHe5jztzvsufFhjNgSzZN" alt="Logo" class="footer-logo-img">
                             <div>
-                                <span style="font-size: 12px; color: var(--accent-teal); text-transform: uppercase; letter-spacing: 1px;">Лицензированный центр</span>
-                                <p style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Сертификация РК</p>
+                                <span style="font-size: 11px; color: var(--accent-teal); text-transform: uppercase; letter-spacing: 1px;">Лицензированный центр</span>
+                                <p style="font-size: 12.5px; color: var(--text-muted); font-weight: 500;">Сертификация РК</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3D CARD 2: NAVIGATION -->
-                <div class="footer-3d-card js-tilt-card">
-                    <div class="footer-3d-content">
+                <div class="footer-3d-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
                         <h4 class="footer-title">Навигация</h4>
                         <ul class="footer-links">
                             <li><a href="#about" class="scroll-trigger"><i class="fas fa-chevron-right"></i> О компании</a></li>
@@ -1760,32 +1103,13 @@
                     </div>
                 </div>
 
-                <!-- 3D CARD 3: CONTACTS & ACTION -->
-                <div class="footer-3d-card js-tilt-card">
-                    <div class="footer-3d-content">
+                <div class="footer-3d-card premium-glass js-tilt-card">
+                    <div class="tilt-content">
                         <h4 class="footer-title">Контакты</h4>
-                        
-                        <div class="footer-contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:ritm_asia@mail.ru" style="color: var(--text-sub);">ritm_asia@mail.ru</a>
-                        </div>
-                        
-                        <div class="footer-contact-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <div>
-                                <a href="tel:+77017161721" style="color: var(--text-sub); display: block;">+7-701-716-1721</a>
-                                <a href="tel:+77474802877" style="color: var(--text-sub); display: block;">+7-747-480-2877</a>
-                            </div>
-                        </div>
-
-                        <div class="footer-contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>г. Алматы, б-р Садовый, 3</span>
-                        </div>
-
-                        <div class="interactive-badge" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work')">
-                            <i class="fas fa-bolt"></i> Быстрая заявка в 1 клик
-                        </div>
+                        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a href="mailto:ritm_asia@mail.ru" style="color: var(--text-sub);">ritm_asia@mail.ru</a></div>
+                        <div class="footer-contact-item"><i class="fas fa-phone-alt"></i><div><a href="tel:+77017161721" style="color: var(--text-sub); display: block;">+7-701-716-1721</a><a href="tel:+77474802877" style="color: var(--text-sub); display: block;">+7-747-480-2877</a></div></div>
+                        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>г. Алматы, б-р Садовый, 3</span></div>
+                        <div class="interactive-badge" onclick="openFilloutModal('https://safetyall.fillout.com/dostup_work')"><i class="fas fa-bolt"></i> Быстрая заявка в 1 клик</div>
                     </div>
                 </div>
 
@@ -1793,7 +1117,7 @@
 
             <div class="copyright-bar">
                 <div>© ТОО "Safetyall", 2026. Все права защищены.</div>
-                <div style="font-size: 13px;">Разработано с применением 3D и ИИ технологий.</div>
+                <div style="font-size: 12.5px;">Разработано с применением 3D и ИИ технологий.</div>
             </div>
         </div>
     </footer>
@@ -1806,128 +1130,79 @@
         function openFilloutModal(url) {
             const iframe = document.getElementById('filloutIframe');
             const modal = document.getElementById('filloutModal');
-            
             iframe.src = url; 
             modal.style.display = 'flex'; 
-            
-            setTimeout(() => {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; 
-            }, 10);
+            setTimeout(() => { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }, 10);
         }
 
         function closeFilloutModal() {
             const modal = document.getElementById('filloutModal');
             modal.classList.remove('active');
-            
-            setTimeout(() => {
-                modal.style.display = 'none';
-                document.getElementById('filloutIframe').src = ''; 
-                document.body.style.overflow = 'auto'; 
-            }, 400);
+            setTimeout(() => { modal.style.display = 'none'; document.getElementById('filloutIframe').src = ''; document.body.style.overflow = 'auto'; }, 400);
         }
 
         // --- PRELOADER ANIMATION ---
         document.body.style.overflow = 'hidden';
-
         const preloader = document.getElementById('preloader');
         const percentText = document.getElementById('loader-percent');
         const loaderText = document.getElementById('loader-text');
         const barFill = document.getElementById('loader-bar-fill');
-        
         let progress = { value: 0 };
-        const messages = [
-            "Загрузка сайта...",
-            "Подключение виртуального помощника...",
-            "SafetyAll рады приветствовать Вас!"
-        ];
+        const messages = ["Инициализация платформы...", "Подключение 3D-интерфейса...", "SafetyAll готовы к работе!"];
 
         gsap.to(progress, {
-            value: 100,
-            duration: 2.8,
-            ease: "power2.inOut",
+            value: 100, duration: 2.8, ease: "power2.inOut",
             onUpdate: function() {
                 let current = Math.round(progress.value);
-                percentText.innerText = current + "%";
-                barFill.style.width = current + "%";
-
-                if (current < 35) {
-                    loaderText.innerText = messages[0];
-                } else if (current < 75) {
-                    loaderText.innerText = messages[1];
-                } else {
-                    loaderText.innerText = messages[2];
-                    loaderText.style.color = "var(--accent-teal)";
-                }
+                percentText.innerText = current + "%"; barFill.style.width = current + "%";
+                if (current < 35) { loaderText.innerText = messages[0]; }
+                else if (current < 75) { loaderText.innerText = messages[1]; }
+                else { loaderText.innerText = messages[2]; loaderText.style.color = "var(--accent-teal)"; }
             },
             onComplete: function() {
-                gsap.to(preloader, {
-                    opacity: 0,
-                    duration: 0.8,
-                    delay: 0.2,
-                    onComplete: () => {
-                        preloader.style.display = "none";
-                        document.body.style.overflow = "auto";
-                        heroTimeline.play(); 
-                    }
-                });
+                gsap.to(preloader, { opacity: 0, duration: 0.8, delay: 0.2, onComplete: () => { preloader.style.display = "none"; document.body.style.overflow = "auto"; heroTimeline.play(); }});
             }
         });
 
-        // --- INTERACTIVE 3D TILT EFFECT FOR FOOTER CARDS ---
+        // --- GLOBAL INTERACTIVE 3D TILT EFFECT ---
         const tiltCards = document.querySelectorAll('.js-tilt-card');
-        
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
+                if (window.innerWidth <= 992) return; 
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -12;
-                const rotateY = ((x - centerX) / centerX) * 12;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+                card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
-
             card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+                if (window.innerWidth <= 992) return;
+                card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg)`;
             });
         });
 
         // --- SCROLL NAVIGATION ---
         document.querySelectorAll('.scroll-trigger').forEach(link => {
             link.addEventListener('click', function(e) {
-                if (this.nextElementSibling && this.nextElementSibling.classList.contains('dropdown-ferrari') && window.innerWidth <= 992) {
-                    return;
-                }
-
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains('dropdown-ferrari') && window.innerWidth <= 992) return;
                 e.preventDefault(); 
                 const href = this.getAttribute('href');
                 if(href === "#") return; 
-                
-                const targetId = href.substring(1); 
-                const targetElement = document.getElementById(targetId);
-
+                const targetElement = document.getElementById(href.substring(1));
                 if (targetElement) {
                     const navMenu = document.getElementById('nav-menu');
                     const mobileToggle = document.getElementById('mobile-toggle');
                     if(navMenu.classList.contains('active')) {
                         navMenu.classList.remove('active');
-                        mobileToggle.querySelector('i').classList.remove('fa-times');
-                        mobileToggle.querySelector('i').classList.add('fa-bars');
+                        mobileToggle.querySelector('i').classList.replace('fa-times', 'fa-bars');
                     }
-
                     const headerOffset = 80;
                     const elementPosition = targetElement.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
                 }
             });
         });
@@ -1935,27 +1210,18 @@
         // --- HEADER SCROLL DETECT ---
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            if (window.scrollY > 40) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         });
 
         // --- MOBILE MENU ---
         const mobileToggle = document.getElementById('mobile-toggle');
         const navMenu = document.getElementById('nav-menu');
-
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             const icon = mobileToggle.querySelector('i');
-            if(navMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
+            if(navMenu.classList.contains('active')) icon.classList.replace('fa-bars', 'fa-times');
+            else icon.classList.replace('fa-times', 'fa-bars');
         });
 
         // --- MODALS & VIDEO HANDLING ---
@@ -1978,63 +1244,38 @@
         if(openVideoBtn1) openVideoBtn1.addEventListener('click', (e) => openVideoModal(e, videoSrc1));
         if(openVideoBtn2) openVideoBtn2.addEventListener('click', (e) => openVideoModal(e, videoSrc2));
 
-        const closeVideo = () => {
-            videoModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            videoFrame.src = ""; 
-        };
-
+        const closeVideo = () => { videoModal.classList.remove('active'); document.body.style.overflow = 'auto'; videoFrame.src = ""; };
         closeVideoBtn.addEventListener('click', closeVideo);
-        videoModal.addEventListener('click', (e) => {
-            if (e.target === videoModal) closeVideo();
-        });
+        videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideo(); });
 
         // --- IMAGE MODAL LOGIC ---
         const imageModal = document.getElementById('image-modal');
         const closeImageBtn = document.getElementById('close-image-btn');
         const fullImage = document.getElementById('course-image-full');
-        const openImageBtns = document.querySelectorAll('.open-image-btn');
-
-        openImageBtns.forEach(btn => {
+        document.querySelectorAll('.open-image-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const src = btn.getAttribute('data-image');
-                fullImage.src = src;
-                imageModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                e.preventDefault(); fullImage.src = btn.getAttribute('data-image'); imageModal.classList.add('active'); document.body.style.overflow = 'hidden';
             });
         });
-
-        const closeImageModal = () => {
-            imageModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        };
-
+        const closeImageModal = () => { imageModal.classList.remove('active'); document.body.style.overflow = 'auto'; };
         closeImageBtn.addEventListener('click', closeImageModal);
-        imageModal.addEventListener('click', (e) => {
-            if (e.target === imageModal || e.target.tagName === 'IMG') closeImageModal();
-        });
+        imageModal.addEventListener('click', (e) => { if (e.target === imageModal || e.target.tagName === 'IMG') closeImageModal(); });
 
         // --- GSAP REVEAL ANIMATIONS ---
         gsap.registerPlugin(ScrollTrigger);
         
         const heroTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out", duration: 1.2 } });
-        
         heroTimeline
-            .from(".hero-modern-card", { scale: 0.92, opacity: 0, duration: 1 })
+            .from(".hero-modern-card", { scale: 0.92, opacity: 0, duration: 1, transform: "perspective(1200px) rotateX(10deg)" })
             .from(".hero-pre-title", { y: 20, opacity: 0 }, "-=0.6")
             .from(".hero-big-brand", { y: 30, opacity: 0, scale: 0.95 }, "-=0.8")
             .from(".hero-subtitle", { y: 20, opacity: 0 }, "-=0.9")
             .from(".hero-btns", { y: 20, opacity: 0 }, "-=1");
 
-        document.querySelectorAll('.glass-panel, .section-title, .adv-card, .course-module, .reason-card, .footer-3d-card').forEach(el => {
+        document.querySelectorAll('.premium-glass').forEach(el => {
             gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 85%",
-                    toggleActions: "play none none reverse"
-                },
-                y: 30, opacity: 0, duration: 0.8, ease: "power2.out"
+                scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
+                y: 40, opacity: 0, scale: 0.98, duration: 0.8, ease: "power3.out"
             });
         });
     </script>
